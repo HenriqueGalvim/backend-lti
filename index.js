@@ -9,9 +9,7 @@ app.use(express.json());
 
 const fs = require("fs");
 
-/* mongoose.connect(
-  "mongodb+srv://admin:admin@cluster0.bbcecoy.mongodb.net/database?retryWrites=true&w=majority&appName=Cluster0"
-); */
+
 const db = new Database("db", "root", "root", {
   host: "localhost",
   dialect: "mysql",
