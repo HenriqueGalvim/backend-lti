@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <title>Lti provider</title>
+      <title>Envio de notas</title>
    </head>
    <body>
-      <h1>Lti Provider</h1>
+      <h1>Atividade</h1>
       <h5>Envio de notas</h5>
       
-      <button onclick="SendGrade()">Send Grade</button>
+      <button onclick="SendGrade()">Envie sua nota</button>
       
       <script>
-        // Gets ltik from url
+        // Pegando o ltik que esta na url e salvando
         const searchParams = new URLSearchParams(window.location.search);
         var ltik = searchParams.get('ltik');
 
@@ -19,7 +19,7 @@
           if (!ltik) throw new Error('Missing lti key.');
         }
           
-        // Saves ltik
+        // Salvando o ltik
         sessionStorage.setItem('ltik', ltik);
         console.log(ltik);
         
@@ -40,10 +40,10 @@
             return response.json();
           })
           .then(data => {
-            console.log('Grade submitted successfully:', data);
+            console.log('Nota enviada com sucesso:', data);
           })
           .catch(error => {
-            console.error('Error submitting grade:', error);
+            console.error('Falha ao enviar a nota:', error);
           });
         }
       </script>
