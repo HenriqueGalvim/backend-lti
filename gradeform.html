@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Lti provider</title>
+   </head>
+   <body>
+      <h1>Lti Provider</h1>
+      <h5>Envio de notas</h5>
+      
+      <button onclick="SendGrade()">Send Grade</button>
+      
+      <script>
+        // Gets ltik from url
+        const searchParams = new URLSearchParams(window.location.search);
+        var ltik = searchParams.get('ltik');
+
+        if (!ltik) {
+          ltik = sessionStorage.getItem('ltik');
+          if (!ltik) throw new Error('Missing lti key.');
+        }
+          
+        // Saves ltik
+        sessionStorage.setItem('ltik', ltik);
+        console.log(ltik);
+        
+        function SendGrade() {
+          const grade = { grade: 100 }; // Substitua 100 pela nota real que deseja enviar
+          fetch('http://localhost:3000/grade', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + ltik
+            },
+            body: JSON.stringify(grade)
+          })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+          })
+          .then(data => {
+            console.log('Grade submitted successfully:', data);
+          })
+          .catch(error => {
+            console.error('Error submitting grade:', error);
+          });
+        }
+      </script>
+   </body>
+</html>
