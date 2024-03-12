@@ -88,6 +88,7 @@ lti.app.post("/grade", async (req, res) => {
       lineItemId,
       gradeObj
     );
+    console.log(err)
     return res.send(responseGrade);
   } catch (err) {
     return res.status(500).send({ err: err.message });
